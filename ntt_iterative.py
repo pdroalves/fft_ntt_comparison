@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from cmath import exp, pi
+from math import log,floor
 import generate_prime as Prime
 
 invMod = lambda y,q:pow(y,q-2,q)
@@ -48,7 +48,7 @@ def ntt_in_place(x,wN,q):
     N = len(x)
     bitrev_shuffle(x)
     trans_size = 2
-    while trans_size <= N:
+    for trans_size in [2**i for i in range(1,int(log(N,2))+1)]:
         wb = 1
         # wb_step = exp(2j * pi / trans_size)
         wb_step = wN**(N/trans_size)
@@ -62,7 +62,6 @@ def ntt_in_place(x,wN,q):
                 x[i] = a + b % q
                 x[j] = a - b % q
             wb *= wb_step
-        trans_size <<= 1
 
 
 def ntt(x,q):
@@ -77,7 +76,7 @@ def intt_in_place(x,wN,q):
     N = len(x)
     bitrev_shuffle(x)
     trans_size = 2
-    while trans_size <= N:
+    for trans_size in [2**i for i in range(1,int(log(N,2))+1)]:
         wb = 1
         # wb_step = exp(2j * pi / trans_size)
         wb_step = invMod(wN**(N/trans_size) % q,q)
@@ -91,7 +90,6 @@ def intt_in_place(x,wN,q):
                 x[i] = a + b % q
                 x[j] = a - b % q
             wb *= wb_step
-        trans_size <<= 1
 
 def intt(x,q):
     N = len(x)
