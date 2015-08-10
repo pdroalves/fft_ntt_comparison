@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from fft import fft,ifft
+from fft_recursive import fft,ifft
 from ntt import ntt,intt
 from math import log
 import generate_prime as Prime
