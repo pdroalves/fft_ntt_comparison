@@ -5,6 +5,7 @@ import ntt_iterative as nttI
 from math import log
 import generate_prime as Prime
 
+print "Comparison between recursive and iterative NTT algorithm"
 
 for i in range(2,10):
     N = 2**i
