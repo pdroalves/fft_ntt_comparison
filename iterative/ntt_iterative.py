@@ -1,5 +1,7 @@
 #!/usr/bin/python
 from math import log,floor
+import sys
+sys.path.append("../")
 import generate_prime as Prime
 
 invMod = lambda y,q:pow(y,q-2,q)

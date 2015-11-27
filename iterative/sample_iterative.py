@@ -1,8 +1,10 @@
 #!/usr/bin/python
-
+import sys
+sys.path.append("../recursive")
 import ntt_recursive as nttR
 import ntt_iterative as nttI
 from math import log
+sys.path.append("../"
 import generate_prime as Prime
 
 print "Comparison between recursive and iterative NTT algorithm"

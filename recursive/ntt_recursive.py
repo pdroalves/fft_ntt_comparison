@@ -16,7 +16,7 @@ def generate_primitive_root(n,q):
     while r is None:
         k = generate_k(n,not_approved)
 
-        for i in range(q):
+        for i in xrange(q):
             if Prime.is_prime(i):
                 s = set()
                 for j in range(q):

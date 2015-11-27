@@ -3,6 +3,8 @@
 from fft_recursive import fft,ifft
 from ntt_recursive import ntt,intt
 from math import log
+import sys
+sys.path.append("../")
 import generate_prime as Prime
 
 print "Comparison between recursive NTT and FFT algorithm "
