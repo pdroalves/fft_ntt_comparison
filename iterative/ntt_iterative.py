@@ -7,30 +7,17 @@ import generate_prime as Prime
 invMod = lambda y,q:pow(y,q-2,q)
 #################################################################
 
-def generate_k(n,not_approved=[]):
-    k = 1
-    while (not Prime.is_prime(k*n+1)) or (k in not_approved):
-        k+=1
-    return k
-
 def generate_primitive_root(n,q):
     not_approved = []
-    r = None
 
-    while r is None:
-        k = generate_k(n,not_approved)
-
-        for i in range(q):
-            if Prime.is_prime(i):
-                s = set()
-                for j in range(q):
-                    s.add(i**j % q)
-                if s == set(range(q))-{0}:
-                    r = i
-        if r is None:
-            # print "%d not approved" % k
-            not_approved.append(k)
-    return r,k
+    for i in xrange(q):
+        if Prime.is_prime(i):
+            s = set()
+            for j in range(q):
+                s.add(i**j % q)
+            if s == set(range(q))-{0}:
+                return i
+    return None
 #################################################################
 
 def bitrev_shuffle(x):
@@ -68,9 +55,14 @@ def ntt_in_place(x,wN,q):
 
 def ntt(x,q):
     x = list(x)
+    N = len(x)
+    assert (q-1) % N == 0 # If this is not true, we won't find a proper k
 
-    r,k = generate_primitive_root(len(x),q)
+    k = (q-1) / N
+    r = generate_primitive_root(N,q)
     wN = r**k
+    assert pow(wN, len(x), q) == 1
+
     ntt_in_place(x,wN,q)
     return  [y % q for y in x]
 
@@ -97,7 +89,9 @@ def intt(x,q):
     N = len(x)
     x = list(x)
 
-    r,k = generate_primitive_root(len(x),q)
+    k = (q-1) / N
+    r = generate_primitive_root(N,q)
     wN = r**k
+    assert pow(wN, len(x), q) == 1
     intt_in_place(x,wN,q)
     return  [y*invMod(len(x),q)%q for y in x]
