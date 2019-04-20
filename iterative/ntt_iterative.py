@@ -8,8 +8,6 @@ invMod = lambda y,q:pow(y,q-2,q)
 #################################################################
 
 def generate_primitive_root(n,q):
-    not_approved = []
-
     for i in xrange(q):
         if Prime.is_prime(i):
             s = set()
@@ -39,7 +37,6 @@ def ntt_in_place(x,wN,q):
     trans_size = 2
     for trans_size in [2**i for i in range(1,int(log(N,2))+1)]:
         wb = 1
-        # wb_step = exp(2j * pi / trans_size)
         wb_step = wN**(N/trans_size)
 
         for t in xrange(trans_size >> 1):
